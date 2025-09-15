@@ -1,0 +1,59 @@
+# Logs
+logs/
+*.log
+
+# Configuration
+config/.env
+
+# Uploads
+uploads/
+*.csv
+*.xlsx
+*.xls
+
+# Cache
+cache/
+*.cache
+
+# Temporary files
+tmp/
+temp/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Dependencies (si utilisation de Composer)
+vendor/
+composer.lock
+
+# Lock files
+*.lock
+
+# Backup files
+*.bak
+*.backup
+*.sql.gz
+
+# Rate limiting files
+logs/rate_limits/
+
+# Session files
+sessions/
+
+# Error logs
+php_errors.log
+error.log
+
+# Development
+.env.local
+.env.development
+test.php
+debug.php

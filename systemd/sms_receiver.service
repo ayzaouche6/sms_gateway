@@ -1,0 +1,32 @@
+[Unit]
+Description=SMS Gateway SMS Receiver
+After=network.target mysql.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/sms-gateway
+ExecStart=/usr/bin/python3 /var/www/sms-gateway/tools/receive_sms_mmcli.py --daemon --interval 30 --verbose
+Restart=always
+RestartSec=30
+StandardOutput=journal
+StandardError=journal
+
+# Variables d'environnement
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=PYTHONPATH=/var/www/sms-gateway
+
+# Limites de sécurité
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/sms-gateway/logs
+NoNewPrivileges=true
+
+# Limites de ressources
+MemoryLimit=128M
+CPUQuota=25%
+
+[Install]
+WantedBy=multi-user.target

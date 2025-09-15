@@ -1,0 +1,33 @@
+[Unit]
+Description=SMS Gateway Queue Processor
+After=network.target mysql.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/sms-gateway
+ExecStart=/usr/bin/php /var/www/sms-gateway/tools/send_queue.php --verbose
+Restart=always
+RestartSec=30
+StandardOutput=journal
+StandardError=journal
+
+# Variables d'environnement
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=PHP_INI_SCAN_DIR=/etc/php/8.1/cli/conf.d
+
+# Limites de sécurité
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/sms-gateway/logs
+ReadWritePaths=/var/www/sms-gateway/uploads
+NoNewPrivileges=true
+
+# Limites de ressources
+MemoryLimit=256M
+CPUQuota=50%
+
+[Install]
+WantedBy=multi-user.target
